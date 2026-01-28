@@ -1,0 +1,56 @@
+[
+  {
+    "id": "SC001",
+    "title": "Smart City Monitoring",
+    "category": "Urban Infrastructure",
+    "image": "https://images.unsplash.com/photo-1546998256-3529a72762b0",
+    "progress": 85,
+    "location": "Bangalore, Karnataka",
+    "status": "Active"
+  },
+  {
+    "id": "LW002",
+    "title": "Logistic and Warehouse Monitoring",
+    "category": "Supply Chain",
+    "image": "https://images.unsplash.com/photo-1669003153363-6d7ba8e20c7e",
+    "progress": 72,
+    "location": "Mumbai, Maharashtra",
+    "status": "Active"
+  },
+  {
+    "id": "MC003",
+    "title": "Mining and Cementery",
+    "category": "Industrial Operations",
+    "image": "https://images.unsplash.com/photo-1739706815629-06f3a2b6a1c4",
+    "progress": 68,
+    "location": "Rajasthan",
+    "status": "Active"
+  },
+  {
+    "id": "EU004",
+    "title": "Energy and Utilities",
+    "category": "Power Generation",
+    "image": "https://images.unsplash.com/photo-1614366502473-e54666693b44",
+    "progress": 90,
+    "location": "Gujarat",
+    "status": "Active"
+  },
+  {
+    "id": "SS005",
+    "title": "Surveillance and Security",
+    "category": "Safety Management",
+    "image": "https://images.unsplash.com/photo-1672073311074-f60c4a5e7b92",
+    "progress": 78,
+    "location": "Delhi NCR",
+    "status": "Active"
+  },
+  {
+    "id": "FE006",
+    "title": "Forest and Environment",
+    "category": "Environmental Conservation",
+    "image": "https://images.unsplash.com/photo-1758465828635-cb04ee439095",
+    "progress": 82,
+    "location": "Kerala",
+    "status": "Active"
+  }
+]

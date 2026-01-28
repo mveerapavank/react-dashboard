@@ -1,0 +1,13 @@
+{
+  "title": "Highway Infrastructure Survey",
+  "category": "Infrastructure Analysis",
+  "image": "https://images.unsplash.com/photo-1531431057391-da7a1aabd412",
+  "progress": 87,
+  "location": "Hyderabad, Telangana",
+  "status": "Active",
+  "details": {
+    "totalKm": "245 km",
+    "defectsFound": "23 detected",
+    "sectionsReviewed": "174/189"
+  }
+}

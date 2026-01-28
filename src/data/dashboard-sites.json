@@ -1,0 +1,12 @@
+{
+  "SC001": [
+    { "id": "SC001-A", "name": "Whitefield Zone", "location": "Whitefield, Bangalore", "image": "https://images.unsplash.com/photo-1693907795785-5cf4927a70fa", "progress": 87 },
+    { "id": "SC001-B", "name": "Electronic City", "location": "Electronic City, Bangalore", "image": "https://images.unsplash.com/photo-1693907795785-5cf4927a70fa", "progress": 92 },
+    { "id": "SC001-C", "name": "Koramangala Hub", "location": "Koramangala, Bangalore", "image": "https://images.unsplash.com/photo-1693907795785-5cf4927a70fa", "progress": 78 }
+  ],
+  "LW002": [
+    { "id": "LW002-A", "name": "Bhiwandi Warehouse", "location": "Bhiwandi, Mumbai", "image": "https://images.unsplash.com/photo-1758609554326-ebf110a4c142", "progress": 85 },
+    { "id": "LW002-B", "name": "Panvel Logistics Hub", "location": "Panvel, Mumbai", "image": "https://images.unsplash.com/photo-1758609554326-ebf110a4c142", "progress": 72 },
+    { "id": "LW002-C", "name": "JNPT Port Facility", "location": "JNPT, Navi Mumbai", "image": "https://images.unsplash.com/photo-1758609554326-ebf110a4c142", "progress": 68 }
+  ]
+}

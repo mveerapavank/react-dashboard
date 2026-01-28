@@ -1,0 +1,62 @@
+[
+  {
+    "id": "FXMN02",
+    "name": "Highway Infrastructure Survey",
+    "industryType": "Infrastructure",
+    "deliverables": "Road Condition Analysis",
+    "location": "Hyderabad, Telangana",
+    "status": "Active",
+    "progress": 85,
+    "startDate": "2024-01-15",
+    "team": 4,
+    "priority": "high"
+  },
+  {
+    "id": "SP0123",
+    "name": "Urban Mosquito Control",
+    "industryType": "Public Health",
+    "deliverables": "Environmental Monitoring",
+    "location": "Mumbai, Maharashtra",
+    "status": "In Progress",
+    "progress": 62,
+    "startDate": "2024-02-01",
+    "team": 3,
+    "priority": "medium"
+  },
+  {
+    "id": "SC0456",
+    "name": "Smart City Analytics",
+    "industryType": "Smart City Living",
+    "deliverables": "Vehicle Management",
+    "location": "Bangalore, Karnataka",
+    "status": "Planning",
+    "progress": 15,
+    "startDate": "2024-03-10",
+    "team": 6,
+    "priority": "high"
+  },
+  {
+    "id": "EN0789",
+    "name": "Solar Farm Inspection",
+    "industryType": "Energy & Utilities",
+    "deliverables": "Equipment Health Check",
+    "location": "Rajasthan",
+    "status": "Completed",
+    "progress": 100,
+    "startDate": "2023-12-01",
+    "team": 2,
+    "priority": "low"
+  },
+  {
+    "id": "MN0321",
+    "name": "Mining Site Survey",
+    "industryType": "Mining",
+    "deliverables": "Geological Analysis",
+    "location": "Jharkhand",
+    "status": "Active",
+    "progress": 45,
+    "startDate": "2024-01-20",
+    "team": 5,
+    "priority": "medium"
+  }
+]

@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Road Condition Analysis",
+    "type": "bar",
+    "icon": "bar-chart-3",
+    "color": "from-blue-500 to-blue-600",
+    "data": { "good": 65, "fair": 25, "poor": 10 }
+  },
+  {
+    "title": "Defect Distribution",
+    "type": "pie",
+    "icon": "pie-chart",
+    "color": "from-orange-500 to-orange-600",
+    "data": { "cracks": 45, "potholes": 30, "wear": 25 }
+  },
+  {
+    "title": "Progress Tracking",
+    "type": "line",
+    "icon": "trending-up",
+    "color": "from-green-500 to-green-600",
+    "data": { "completion": 87, "quality": 92, "timeline": 78 }
+  }
+]

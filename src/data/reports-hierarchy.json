@@ -1,0 +1,251 @@
+{
+  "Smart City Monitoring": {
+    "projects": {
+      "Urban Traffic Management": {
+        "deliverables": {
+          "Vehicle Tracking System": {
+            "sites": {
+              "Central District Hub": {
+                "siteInfo": {
+                  "image": "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800",
+                  "inspectedDate": "2024-11-15",
+                  "location": "Central District, Bangalore",
+                  "area": "2,500 sq.m",
+                  "defectsCount": 3
+                },
+                "media": [
+                  {
+                    "type": "image",
+                    "url": "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800",
+                    "title": "Traffic Flow Analysis",
+                    "date": "2024-11-15",
+                    "location": "Central District, Bangalore",
+                    "metrics": {
+                      "vehicles": 2456,
+                      "avgSpeed": "45 km/h",
+                      "congestion": "23%"
+                    }
+                  },
+                  {
+                    "type": "image",
+                    "url": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800",
+                    "title": "Peak Hour Monitoring",
+                    "date": "2024-11-15",
+                    "location": "Central District, Bangalore",
+                    "metrics": {
+                      "vehicles": 3892,
+                      "avgSpeed": "28 km/h",
+                      "congestion": "67%"
+                    }
+                  }
+                ]
+              },
+              "East Corridor Site": {
+                "siteInfo": {
+                  "image": "https://images.unsplash.com/photo-1494253109108-2e30c049369b?w=800",
+                  "inspectedDate": "2024-11-14",
+                  "location": "East Corridor, Bangalore",
+                  "perimeter": "3.2 km",
+                  "defectsCount": 1
+                },
+                "media": [
+                  {
+                    "type": "video",
+                    "url": "https://images.unsplash.com/photo-1494253109108-2e30c049369b?w=800",
+                    "title": "Real-time Vehicle Count",
+                    "date": "2024-11-14",
+                    "location": "East Corridor, Bangalore",
+                    "metrics": {
+                      "vehicles": 1823,
+                      "avgSpeed": "52 km/h",
+                      "congestion": "15%"
+                    }
+                  }
+                ]
+              },
+              "West Junction Point": {
+                "siteInfo": {
+                  "image": "https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=800",
+                  "inspectedDate": "2024-11-16",
+                  "location": "West Junction, Bangalore",
+                  "area": "1,800 sq.m",
+                  "defectsCount": 0
+                },
+                "media": [
+                  {
+                    "type": "image",
+                    "url": "https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=800",
+                    "title": "Junction Traffic Management",
+                    "date": "2024-11-16",
+                    "location": "West Junction, Bangalore",
+                    "metrics": {
+                      "vehicles": 3124,
+                      "avgSpeed": "38 km/h",
+                      "congestion": "45%"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "Parking Management": {
+            "sites": {
+              "Commercial Plaza": {
+                "siteInfo": {
+                  "image": "https://images.unsplash.com/photo-1683109454099-bfabafea8df5?w=800",
+                  "inspectedDate": "2024-11-15",
+                  "location": "Commercial Plaza, Bangalore",
+                  "area": "5,000 sq.m",
+                  "defectsCount": 2
+                },
+                "media": [
+                  {
+                    "type": "image",
+                    "url": "https://images.unsplash.com/photo-1683109454099-bfabafea8df5?w=800",
+                    "title": "Parking Occupancy Overview",
+                    "date": "2024-11-15",
+                    "location": "Commercial Plaza, Bangalore",
+                    "metrics": {
+                      "totalSlots": 450,
+                      "occupied": 312,
+                      "available": 138,
+                      "occupancyRate": "69.3%"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "Smart Lighting Control": {
+        "deliverables": {
+          "Street Light Monitoring": {
+            "sites": {
+              "Highway A-23": {
+                "siteInfo": {
+                  "image": "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=800",
+                  "inspectedDate": "2024-11-13",
+                  "location": "Highway A-23",
+                  "perimeter": "12.5 km",
+                  "defectsCount": 6
+                },
+                "media": [
+                  {
+                    "type": "image",
+                    "url": "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=800",
+                    "title": "Highway Lighting Status",
+                    "date": "2024-11-13",
+                    "location": "Highway A-23",
+                    "metrics": {
+                      "totalLights": 234,
+                      "operational": 228,
+                      "maintenance": 6,
+                      "energySaved": "34%"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "Energy and Utilities": {
+    "projects": {
+      "Solar Farm Monitoring": {
+        "deliverables": {
+          "Panel Efficiency Tracking": {
+            "sites": {
+              "Solar Farm East": {
+                "siteInfo": {
+                  "image": "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800",
+                  "inspectedDate": "2024-09-30",
+                  "location": "Solar Farm East",
+                  "area": "50 hectares",
+                  "defectsCount": 8
+                },
+                "media": [
+                  {
+                    "type": "image",
+                    "url": "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800",
+                    "title": "Solar Panel Performance Q3",
+                    "date": "2024-09-30",
+                    "location": "Solar Farm East",
+                    "metrics": {
+                      "panels": 5000,
+                      "efficiency": "94.2%",
+                      "output": "2.4 MW",
+                      "uptime": "99.1%"
+                    }
+                  }
+                ]
+              },
+              "Solar Farm West": {
+                "siteInfo": {
+                  "image": "https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=800",
+                  "inspectedDate": "2024-11-10",
+                  "location": "Solar Farm West",
+                  "area": "35 hectares",
+                  "defectsCount": 4
+                },
+                "media": [
+                  {
+                    "type": "image",
+                    "url": "https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=800",
+                    "title": "West Farm Analysis",
+                    "date": "2024-11-10",
+                    "location": "Solar Farm West",
+                    "metrics": {
+                      "panels": 3500,
+                      "efficiency": "92.8%",
+                      "output": "1.8 MW",
+                      "uptime": "98.5%"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "Surveillance and Security": {
+    "projects": {
+      "CCTV Network Management": {
+        "deliverables": {
+          "Camera Health Monitoring": {
+            "sites": {
+              "Downtown Area": {
+                "siteInfo": {
+                  "image": "https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=800",
+                  "inspectedDate": "2024-11-16",
+                  "location": "Downtown District",
+                  "area": "8.5 sq.km",
+                  "defectsCount": 2
+                },
+                "media": [
+                  {
+                    "type": "video",
+                    "url": "https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=800",
+                    "title": "Camera Network Status",
+                    "date": "2024-11-16",
+                    "location": "Downtown District",
+                    "metrics": {
+                      "cameras": 156,
+                      "online": 154,
+                      "offline": 2,
+                      "alerts": 3
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "civilSuppliesData": [
+    { "district": "SKLM", "rice": 892, "wheat": 445, "sugar": 189 },
+    { "district": "VZM", "rice": 847, "wheat": 423, "sugar": 178 },
+    { "district": "VSKP", "rice": 798, "wheat": 398, "sugar": 167 },
+    { "district": "EG", "rice": 723, "wheat": 361, "sugar": 152 },
+    { "district": "WG", "rice": 689, "wheat": 344, "sugar": 145 },
+    { "district": "KRI", "rice": 654, "wheat": 327, "sugar": 138 },
+    { "district": "GNT", "rice": 612, "wheat": 306, "sugar": 129 },
+    { "district": "PRKM", "rice": 578, "wheat": 289, "sugar": 122 },
+    { "district": "KRNL", "rice": 543, "wheat": 271, "sugar": 115 },
+    { "district": "KDP", "rice": 498, "wheat": 249, "sugar": 105 },
+    { "district": "NLR", "rice": 467, "wheat": 233, "sugar": 98 },
+    { "district": "CTR", "rice": 434, "wheat": 217, "sugar": 91 },
+    { "district": "ATR", "rice": 398, "wheat": 199, "sugar": 84 }
+  ],
+  "stockDistribution": [
+    { "name": "Rice", "value": 60, "color": "#3b82f6" },
+    { "name": "Wheat", "value": 20, "color": "#10b981" },
+    { "name": "Sugar", "value": 15, "color": "#f59e0b" },
+    { "name": "Oats", "value": 5, "color": "#ef4444" }
+  ],
+  "monthlyDistribution": [
+    { "month": "Jan", "rice": 1245, "wheat": 823, "sugar": 412 },
+    { "month": "Feb", "rice": 1356, "wheat": 867, "sugar": 445 },
+    { "month": "Mar", "rice": 1189, "wheat": 756, "sugar": 389 },
+    { "month": "Apr", "rice": 1298, "wheat": 834, "sugar": 423 },
+    { "month": "May", "rice": 1467, "wheat": 912, "sugar": 478 },
+    { "month": "Jun", "rice": 1398, "wheat": 889, "sugar": 467 },
+    { "month": "Jul", "rice": 1523, "wheat": 967, "sugar": 512 },
+    { "month": "Aug", "rice": 1445, "wheat": 923, "sugar": 489 },
+    { "month": "Sep", "rice": 1367, "wheat": 878, "sugar": 456 },
+    { "month": "Oct", "rice": 1289, "wheat": 834, "sugar": 434 },
+    { "month": "Nov", "rice": 1234, "wheat": 798, "sugar": 423 },
+    { "month": "Dec", "rice": 1345, "wheat": 856, "sugar": 445 }
+  ],
+  "supplyChainEfficiency": [
+    { "quarter": "Q1", "procurement": 87, "distribution": 92, "storage": 89 },
+    { "quarter": "Q2", "procurement": 91, "distribution": 88, "storage": 93 },
+    { "quarter": "Q3", "procurement": 89, "distribution": 94, "storage": 87 },
+    { "quarter": "Q4", "procurement": 93, "distribution": 90, "storage": 91 }
+  ]
+}

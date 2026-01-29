@@ -7,8 +7,11 @@ import { Alerts } from "./components/Alerts";
 import { Analytics } from "./components/Analytics";
 import { ProjectDetail } from "./components/ProjectDetail";
 import { Header } from "./components/Header";
+import Login from "./pages/Login";
+
 
 export default function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
   const [activeSection, setActiveSection] = useState("dashboard");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [showProjectDetail, setShowProjectDetail] = useState(false);
@@ -38,6 +41,9 @@ export default function App() {
     }
   };
 
+if (!loggedIn) {
+  return <Login onLogin={() => setLoggedIn(true)} />;
+}
   return (
     <div className="dark h-screen bg-background text-foreground">
       <div className="flex h-full">

@@ -33,11 +33,27 @@ const navigationItems = [
 const recognizedLogos = [telanganaLogo, awsIntelLogo, startupindiaLogo];
 
 export function Sidebar({
+  role,
   activeSection,
   onSectionChange,
   collapsed,
   onToggleCollapse,
 }) {
+const navigationItems = [
+  { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
+
+  ...(role === "super_admin"
+    ? [
+        { id: "projects", label: "Projects", icon: FolderKanban },
+        { id: "reports", label: "Reports", icon: FileText },
+        { id: "alerts", label: "Alerts", icon: Bell },
+        { id: "analytics", label: "Analytics", icon: BarChart3 },
+      ]
+    : [
+        { id: "reports", label: "Reports", icon: FileText },
+      ]),
+];
+
   return (
     <TooltipProvider>
       <div

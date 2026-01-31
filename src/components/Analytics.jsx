@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import api from "../services/api";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 import {
@@ -32,12 +33,6 @@ import {
   LineChart as RechartsLineChart,
   Line,
 } from "recharts";
-
-// ✅ JSON import
-import analyticsData from "../data/analytics-page.json";
-
-const { civilSuppliesData, stockDistribution, monthlyDistribution, supplyChainEfficiency } =
-  analyticsData;
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
@@ -82,6 +77,35 @@ const ViewDropdown = ({ onViewChange }) => (
 );
 
 export function Analytics() {
+  const [analytics, setAnalytics] = useState({});
+
+  const {
+    civilSuppliesData = [],
+    stockDistribution = [],
+    monthlyDistribution = [],
+    supplyChainEfficiency = [],
+  } = analytics;
+
+useEffect(() => {
+  const loadAnalytics = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await api.get("/api/v1/analytics/overview", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setAnalytics(res.data || {});
+    } catch (err) {
+      console.error("Analytics load failed", err);
+    }
+  };
+
+  loadAnalytics();
+}, []);
+
   const [barChartView, setBarChartView] = useState("annual");
   const [pieChartView, setPieChartView] = useState("annual");
   const [areaChartView, setAreaChartView] = useState("annual");

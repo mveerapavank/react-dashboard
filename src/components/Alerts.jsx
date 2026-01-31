@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import api from "../services/api";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -36,9 +37,6 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 
-// ✅ JSON import
-import alerts from "../data/alerts-page.json";
-
 const severityConfig = {
   critical: {
     color: "bg-red-500",
@@ -64,24 +62,42 @@ const statusConfig = {
 };
 
 export function Alerts() {
+  const [alerts, setAlerts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [severityFilter, setSeverityFilter] = useState("all");
 
-  const filteredAlerts = alerts.filter((alert) => {
-    const matchesSearch =
-      alert.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      alert.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      alert.id.toLowerCase().includes(searchTerm.toLowerCase());
+useEffect(() => {
+  const loadAlerts = async () => {
+    try {
+      const res = await api.get("/api/v1/alerts");
+      setAlerts(res.data || []);
+    } catch (err) {
+      console.error("Alerts load failed", err);
+    }
+  };
 
-    const matchesStatus =
-      statusFilter === "all" || alert.status === statusFilter;
+  loadAlerts();
+}, []);
 
-    const matchesSeverity =
-      severityFilter === "all" || alert.severity === severityFilter;
+const filteredAlerts = alerts.filter((alert) => {
+  const title = alert.title || "";
+  const description = alert.description || "";
+  const id = alert.id || "";
 
-    return matchesSearch && matchesStatus && matchesSeverity;
-  });
+  const matchesSearch =
+    title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    id.toLowerCase().includes(searchTerm.toLowerCase());
+
+  const matchesStatus =
+    statusFilter === "all" || alert.status === statusFilter;
+
+  const matchesSeverity =
+    severityFilter === "all" || alert.severity === severityFilter;
+
+  return matchesSearch && matchesStatus && matchesSeverity;
+});
 
   const activeAlertsCount = alerts.filter(
     (alert) => alert.status === "active"
@@ -90,6 +106,34 @@ export function Alerts() {
   const criticalAlertsCount = alerts.filter(
     (alert) => alert.severity === "critical"
   ).length;
+
+const acknowledgeAlert = async (alertId) => {
+  try {
+    await api.patch(`/api/v1/alerts/${alertId}/acknowledge`);
+
+    setAlerts((prev) =>
+      prev.map((a) =>
+        a.id === alertId ? { ...a, status: "acknowledged" } : a
+      )
+    );
+  } catch (err) {
+    console.error("Acknowledge failed", err);
+  }
+};
+
+const resolveAlert = async (alertId) => {
+  try {
+    await api.patch(`/api/v1/alerts/${alertId}/resolve`);
+
+    setAlerts((prev) =>
+      prev.map((a) =>
+        a.id === alertId ? { ...a, status: "resolved" } : a
+      )
+    );
+  } catch (err) {
+    console.error("Resolve failed", err);
+  }
+};
 
   return (
     <div className="space-y-6">
@@ -132,8 +176,11 @@ export function Alerts() {
         <Card>
           <CardContent className="p-6 flex justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Resolved Today</p>
-              <h3 className="text-2xl font-bold text-green-500">12</h3>
+<p className="text-sm text-muted-foreground">Resolved</p>
+<h3 className="text-2xl font-bold text-green-500">
+  {alerts.filter(a => a.status === "resolved").length}
+</h3>
+
             </div>
             <CheckCircle />
           </CardContent>
@@ -201,10 +248,10 @@ export function Alerts() {
 
             <TableBody>
               {filteredAlerts.map((alert) => {
-                const severityInfo = severityConfig[alert.severity];
-                const statusInfo = statusConfig[alert.status];
+                const severityInfo = severityConfig[alert.severity] || severityConfig.info;
+                const statusInfo = statusConfig[alert.status] || statusConfig.active;
                 const SeverityIcon = severityInfo.icon;
-
+                
                 return (
                   <TableRow key={alert.id}>
                     <TableCell>{alert.id}</TableCell>
@@ -246,16 +293,32 @@ export function Alerts() {
                             <MoreHorizontal className="w-4 h-4" />
                           </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                          <DropdownMenuItem>
-                            <Eye className="w-4 h-4 mr-2" />
-                            View Details
-                          </DropdownMenuItem>
-                          <DropdownMenuItem className="text-destructive">
-                            <X className="w-4 h-4 mr-2" />
-                            Dismiss
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
+<DropdownMenuContent>
+  <DropdownMenuItem>
+    <Eye className="w-4 h-4 mr-2" />
+    View Details
+  </DropdownMenuItem>
+
+{alert.status === "active" && (
+  <DropdownMenuItem onClick={() => acknowledgeAlert(alert.id)}>
+    <CheckCircle className="w-4 h-4 mr-2" />
+    Acknowledge
+  </DropdownMenuItem>
+)}
+
+{alert.status === "acknowledged" && (
+  <DropdownMenuItem onClick={() => resolveAlert(alert.id)}>
+    <CheckCircle className="w-4 h-4 mr-2" />
+    Mark as Resolved
+  </DropdownMenuItem>
+)}
+
+  <DropdownMenuItem className="text-destructive">
+    <X className="w-4 h-4 mr-2" />
+    Dismiss Alert
+  </DropdownMenuItem>
+</DropdownMenuContent>
+
                       </DropdownMenu>
                     </TableCell>
                   </TableRow>

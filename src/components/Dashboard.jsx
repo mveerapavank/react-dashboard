@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import api from "../services/api";
+
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Progress } from "./ui/progress";
@@ -16,12 +18,6 @@ import {
 } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
-// JSON importsss
-import allProjects from "../data/dashboard-projects.json";
-import siteLocations from "../data/dashboard-sites.json";
-import projectData from "../data/dashboard-project-meta.json";
-import graphConfig from "../data/dashboard-graphs.json";
-
 // icon string -> component map
 const ICON_MAP = {
   "bar-chart-3": BarChart3,
@@ -30,13 +26,86 @@ const ICON_MAP = {
 };
 
 export function Dashboard({ onProjectClick }) {
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [selectedSite, setSelectedSite] = useState(null);
+const [selectedProject, setSelectedProject] = useState(null);
+const [selectedSite, setSelectedSite] = useState(null);
+const [projects, setProjects] = useState([]);
+const [sites, setSites] = useState([]);
+const [projectMeta, setProjectMeta] = useState(null);
+const [graphs, setGraphs] = useState([]);
+const [alerts, setAlerts] = useState([]);
+const [tasks, setTasks] = useState({ active: 0, completed: 0 });
 
-  const handleProjectClick = (projectId) => {
-    setSelectedProject(projectId);
-    setSelectedSite(null);
+useEffect(() => {
+
+  const loadProjects = async () => {
+    try {
+const res = await api.get("/api/v1/dashboard/projects");
+
+
+      setProjects(res.data);
+    } catch (err) {
+      console.error("Projects load failed", err);
+    }
   };
+
+const loadGraphs = async () => {
+  try {
+    const res = await api.get("/api/v1/dashboard/graphs");
+    setGraphs(res.data);
+  } catch (err) {
+    console.error("Graphs load failed", err);
+  }
+};
+const loadAlerts = async () => {
+  try {
+    const res = await api.get("/api/v1/alerts");
+    setAlerts(res.data || []);
+  } catch (err) {
+    console.error("Alerts load failed", err);
+  }
+};
+const loadTasks = async () => {
+  try {
+    const res = await api.get("/api/v1/dashboard/tasks");
+    setTasks(res.data || { active: 0, completed: 0 });
+  } catch (err) {
+    console.error("Tasks load failed", err);
+  }
+};
+
+
+loadProjects();
+loadGraphs();
+loadAlerts();
+loadTasks();
+
+}, []);
+
+
+const handleProjectClick = async (projectId) => {
+  setSelectedProject(projectId);
+  setSelectedSite(null);
+
+  try {
+    const res = await api.get(`/api/v1/dashboard/sites?project_id=${projectId}`);
+  
+    console.log("Sites API response:", res.data);
+    console.log("ProjectId:", projectId);
+
+    // backend returns object, extract array
+    const siteList = res.data || [];
+    setSites(siteList);
+const metaRes = await api.get(
+  `/api/v1/dashboard/project-meta?project_id=${projectId}`
+);
+
+setProjectMeta(metaRes.data);
+
+  } catch (err) {
+    console.error("Sites load failed", err);
+  }
+};
+
 
   const handleSiteClick = (siteId) => {
     setSelectedSite(siteId);
@@ -51,9 +120,8 @@ export function Dashboard({ onProjectClick }) {
     setSelectedSite(null);
   };
 
-  const selectedProjectSites = selectedProject
-    ? siteLocations[selectedProject] || []
-    : [];
+const selectedProjectSites = sites;
+
   const selectedSiteData =
     selectedProjectSites.find((site) => site.id === selectedSite) || null;
 
@@ -68,7 +136,10 @@ export function Dashboard({ onProjectClick }) {
                 <p className="text-sm font-medium text-muted-foreground">
                   Active Tasks
                 </p>
-                <h3 className="text-2xl font-bold text-foreground">24</h3>
+                <h3 className="text-2xl font-bold text-foreground">
+  {tasks.active}
+</h3>
+
                 <div className="flex items-center text-xs text-blue-500">
                   <ListTodo className="w-3 h-3 mr-1" />
                   In progress
@@ -88,7 +159,10 @@ export function Dashboard({ onProjectClick }) {
                 <p className="text-sm font-medium text-muted-foreground">
                   Complete Tasks
                 </p>
-                <h3 className="text-2xl font-bold text-foreground">156</h3>
+                <h3 className="text-2xl font-bold text-foreground">
+  {tasks.completed}
+</h3>
+
                 <div className="flex items-center text-xs text-green-500">
                   <CheckCircle2 className="w-3 h-3 mr-1" />
                   +12 this week
@@ -108,11 +182,15 @@ export function Dashboard({ onProjectClick }) {
                 <p className="text-sm font-medium text-muted-foreground">
                   Total Projects
                 </p>
-                <h3 className="text-2xl font-bold text-foreground">12</h3>
-                <div className="flex items-center text-xs text-green-500">
-                  <TrendingUp className="w-3 h-3 mr-1" />
-                  +8% from last month
-                </div>
+                <h3 className="text-2xl font-bold text-foreground">
+  {tasks.active}
+</h3>
+
+<div className="flex items-center text-xs text-green-500">
+  <TrendingUp className="w-3 h-3 mr-1" />
+  Live data
+</div>
+
               </div>
               <div className="w-10 h-10 rounded-xl bg-purple-500 flex items-center justify-center">
                 <FolderKanban className="w-5 h-5 text-white" />
@@ -128,7 +206,10 @@ export function Dashboard({ onProjectClick }) {
                 <p className="text-sm font-medium text-muted-foreground">
                   Active Alerts
                 </p>
-                <h3 className="text-2xl font-bold text-foreground">3</h3>
+                <h3 className="text-2xl font-bold text-foreground">
+  {alerts.filter(a => a.status === "active").length}
+</h3>
+
                 <div className="flex items-center text-xs text-orange-500">
                   <Target className="w-3 h-3 mr-1" />
                   2 require attention
@@ -146,7 +227,7 @@ export function Dashboard({ onProjectClick }) {
       {!selectedProject ? (
         // Show all projects initially
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {allProjects.map((project) => (
+          {projects.map((project) => (
             <div
               key={project.id}
               className="cursor-pointer group"
@@ -191,7 +272,7 @@ export function Dashboard({ onProjectClick }) {
             <div className="flex items-center space-x-2">
               <MapPin className="w-5 h-5 text-blue-500" />
               <span className="text-lg font-semibold">
-                {allProjects.find((p) => p.id === selectedProject)?.title} - Site
+                {projects.find((p) => p.id === selectedProject)?.title} - Site
                 Locations
               </span>
             </div>
@@ -280,15 +361,15 @@ export function Dashboard({ onProjectClick }) {
                     </h3>
                     <Badge
                       variant={
-                        projectData.status === "Active" ? "default" : "secondary"
+                        projectMeta?.status === "Active" ? "default" : "secondary"
                       }
                     >
-                      {projectData.status}
+                      {projectMeta?.status}
                     </Badge>
                   </div>
 
                   <p className="text-sm text-muted-foreground">
-                    {projectData.category}
+                    {projectMeta?.category}
                   </p>
 
                   <div className="flex items-center text-sm text-muted-foreground">
@@ -315,7 +396,7 @@ export function Dashboard({ onProjectClick }) {
                         Total Distance
                       </span>
                       <span className="font-medium">
-                        {projectData.details.totalKm}
+                        {projectMeta?.details?.totalKm}
                       </span>
                     </div>
                     <div className="flex justify-between">
@@ -323,7 +404,7 @@ export function Dashboard({ onProjectClick }) {
                         Defects Found
                       </span>
                       <span className="font-medium">
-                        {projectData.details.defectsFound}
+                        {projectMeta?.details?.defectsFound}
                       </span>
                     </div>
                     <div className="flex justify-between">
@@ -331,7 +412,7 @@ export function Dashboard({ onProjectClick }) {
                         Sections Reviewed
                       </span>
                       <span className="font-medium">
-                        {projectData.details.sectionsReviewed}
+                        {projectMeta?.details?.sectionsReviewed}
                       </span>
                     </div>
                   </div>
@@ -340,7 +421,7 @@ export function Dashboard({ onProjectClick }) {
 
               {/* Graph Cards */}
               <div className="grid grid-cols-1 gap-4">
-                {graphConfig.map((graph, index) => {
+                {graphs.map((graph, index) => {
                   const Icon = ICON_MAP[graph.icon] || Activity;
                   return (
                     <Card key={index} className="border-border bg-muted/30">
@@ -359,7 +440,7 @@ export function Dashboard({ onProjectClick }) {
                         </div>
 
                         <div className="space-y-2">
-                          {Object.entries(graph.data).map(
+                          {Object.entries(graph.data || {}).map(
                             ([key, value], idx) => (
                               <div
                                 key={idx}

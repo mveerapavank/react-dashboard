@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import api from "../services/api";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
-import { Badge } from "./ui/badge";
 import {
   Download,
   FileText,
@@ -21,18 +21,37 @@ import {
 } from "./ui/select";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
-// ✅ JSON import
-import reportHierarchy from "../data/reports-hierarchy.json";
-
 export function Reports() {
+  const [reports, setReports] = useState({});
+
+useEffect(() => {
+  const loadReports = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await api.get("/api/v1/reports/hierarchy", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setReports(res.data || {});
+    } catch (err) {
+      console.error("Reports load failed", err);
+    }
+  };
+
+  loadReports();
+}, []);
+
   const [selectedIndustry, setSelectedIndustry] = useState("");
   const [selectedProject, setSelectedProject] = useState("");
   const [selectedDeliverable, setSelectedDeliverable] = useState("");
   const [selectedSite, setSelectedSite] = useState("");
 
-  const industries = Object.keys(reportHierarchy);
+  const industries = Object.keys(reports);
 
-  const selectedIndustryData = reportHierarchy[selectedIndustry] || null;
+  const selectedIndustryData = reports[selectedIndustry] || null;
   const selectedProjectData =
     selectedIndustryData?.projects?.[selectedProject] || null;
   const selectedDeliverableData =

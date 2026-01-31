@@ -27,6 +27,10 @@ export function Header({ activeSection, onToggleSidebar }) {
   const [uploadDialogOpen, setUploadDialogOpen] = useState(false);
   const [notificationDialogOpen, setNotificationDialogOpen] = useState(false);
   const [settingsDialogOpen, setSettingsDialogOpen] = useState(false);
+  const handleLogout = () => {
+  localStorage.removeItem("token");
+  window.location.reload();
+};
 
   const currentTitle = sectionTitles[activeSection];
 
@@ -115,7 +119,7 @@ export function Header({ activeSection, onToggleSidebar }) {
                 Preferences
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-destructive">
+              <DropdownMenuItem className="text-destructive" onClick={handleLogout}>
                 <LogOut className="w-4 h-4 mr-2" />
                 Sign Out
               </DropdownMenuItem>

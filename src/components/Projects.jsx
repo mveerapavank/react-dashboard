@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import api from "../services/api";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -39,9 +40,6 @@ import {
   SelectValue,
 } from "./ui/select";
 
-// ✅ JSON nundi projects data
-import projects from "../data/projects-page.json";
-
 const statusColors = {
   Active: "bg-green-500",
   "In Progress": "bg-blue-500",
@@ -61,20 +59,41 @@ export function Projects({ onNavigateToAnalytics }) {
   const [statusFilter, setStatusFilter] = useState("all");
   const [industryFilter, setIndustryFilter] = useState("all");
 
-  const filteredProjects = projects.filter((project) => {
-    const matchesSearch =
-      project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      project.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      project.location.toLowerCase().includes(searchTerm.toLowerCase());
+    const [projects, setProjects] = useState([]);
 
-    const matchesStatus =
-      statusFilter === "all" || project.status === statusFilter;
+useEffect(() => {
+  const loadProjects = async () => {
+    try {
+      const res = await api.get("/api/v1/projects");
+      setProjects(res.data || []);
+    } catch (err) {
+      console.error("Projects load failed", err);
+    }
+  };
 
-    const matchesIndustry =
-      industryFilter === "all" || project.industryType === industryFilter;
+  loadProjects();
+}, []);
 
-    return matchesSearch && matchesStatus && matchesIndustry;
-  });
+
+if (!Array.isArray(projects)) return null;
+const filteredProjects = projects.filter((project) => {
+  const name = project.name || "";
+  const id = project.id || "";
+  const location = project.location || "";
+
+const matchesSearch =
+  (project.name || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+  (project.id || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+  (project.location || "").toLowerCase().includes(searchTerm.toLowerCase());
+
+  const matchesStatus =
+    statusFilter === "all" || project.status === statusFilter;
+
+  const matchesIndustry =
+    industryFilter === "all" || project.industryType === industryFilter;
+
+  return matchesSearch && matchesStatus && matchesIndustry;
+});
 
   return (
     <div className="space-y-6">
@@ -244,19 +263,19 @@ export function Projects({ onNavigateToAnalytics }) {
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                          <DropdownMenuItem>
+                          <DropdownMenuItem disabled>
                             <Eye className="w-4 h-4 mr-2" />
                             View Details
                           </DropdownMenuItem>
-                          <DropdownMenuItem>
+                          <DropdownMenuItem disabled>
                             <Edit className="w-4 h-4 mr-2" />
                             Edit Project
                           </DropdownMenuItem>
-                          <DropdownMenuItem>
+                          <DropdownMenuItem disabled>
                             <FileText className="w-4 h-4 mr-2" />
                             Generate Report
                           </DropdownMenuItem>
-                          <DropdownMenuItem className="text-destructive">
+                          <DropdownMenuItem disabled className="text-destructive">
                             <Trash2 className="w-4 h-4 mr-2" />
                             Delete Project
                           </DropdownMenuItem>
